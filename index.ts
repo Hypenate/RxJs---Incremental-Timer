@@ -13,7 +13,7 @@ const spread = source.pipe(
   concatMap((value, index) => {
     return of(value).pipe(delay(calculateDelay(index, 2000)));
   }),
-  take(10) // To finizalize it
+  take(5) // To finizalize it
 );
 
 spread.subscribe({
