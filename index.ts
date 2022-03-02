@@ -1,5 +1,3 @@
-import './style.css';
-
 import { of, interval } from 'rxjs';
 import { concatMap, delay, take } from 'rxjs/operators';
 
