@@ -1,22 +1,21 @@
 import { of, interval } from 'rxjs';
 import { concatMap, delay, take } from 'rxjs/operators';
 
-function calculateDelay(iteration, initialInterval) {
-  const delay = iteration * initialInterval + 1000;
-  console.log('delay: ' + delay);
-
-  return delay;
+function calculateDelay(iteration: number, initialInterval: number): number {
+  return iteration * initialInterval + 1000;
 }
 
-const source = interval(2000);
-const spread = source.pipe(
-  concatMap((value, index) => {
-    return of(value).pipe(delay(calculateDelay(index, 2000)));
-  }),
+const spread$ = interval(2000).pipe(
+  concatMap((value, index) =>
+    of(value).pipe(delay(calculateDelay(index, 2000)))
+  ),
   take(5) // To finizalize it
 );
 
-spread.subscribe({
+spread$.subscribe({
+  next(tick) {
+    console.log(tick);
+  },
   complete() {
     console.log('done');
   },
